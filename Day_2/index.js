@@ -1,10 +1,13 @@
+// Get DOM elements
 const progress = document.getElementById("progress");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
 const circles = document.querySelectorAll(".circle");
 
+// Track current active step
 let currentActive = 1;
 
+// Handle next button click
 next.addEventListener("click", () => {
   currentActive++;
   if (currentActive > circles.length) {
@@ -14,6 +17,7 @@ next.addEventListener("click", () => {
   update();
 });
 
+// Handle previous button click
 prev.addEventListener("click", () => {
   currentActive--;
   if (currentActive < 1) {
@@ -22,7 +26,9 @@ prev.addEventListener("click", () => {
   update();
 });
 
+// Update UI state
 function update() {
+  // Update circle states
   circles.forEach((circle, index) => {
     if (index < currentActive) {
       circle.classList.add("active");
@@ -31,10 +37,12 @@ function update() {
     }
   });
 
+  // Update progress bar width
   const actives = document.querySelectorAll(".active");
   progress.style.width =
     ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
 
+  // Handle button states
   if (currentActive === 1) {
     prev.disabled = true;
   } else if (currentActive === circles.length) {
